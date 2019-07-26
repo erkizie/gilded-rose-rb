@@ -24,6 +24,17 @@ describe GildedRose do
       expect {GildedRose.new(items).update_quality()}.not_to change {items[0].quality}
     end
 
+    it "quality of a normal item goes down by 1" do
+      items = [Item.new("conjured", 15, 11)]
+      expect {GildedRose.new(items).update_quality()}.to change {items[0].quality}.by(-2)
+    end
+
+    it "quality of a normal item goes down by 2 when it is past it's sell by date" do
+      items = [Item.new("conjured", 0, 11)]
+      expect {GildedRose.new(items).update_quality()}.to change {items[0].quality}.by(-3)
+    end
+
+
     it "Quality of an item is never negative" do
       items = [Item.new("foo", 0, 0)]
       expect {GildedRose.new(items).update_quality()}.not_to change {items[0].quality}
