@@ -40,4 +40,14 @@ describe GildedRose do
     expect {GildedRose.new(items).update_quality().not_to change {items[0].quality}}
   end
 
+  it "'Sulfuras, Hand of Ragnaros', sell_in does not change" do
+    items = [Item.new("Sulfuras, Hand of Ragnaros", 10, 50)]
+    expect {GildedRose.new(items).update_quality()}.not_to change {items[0].sell_in}
+  end
+
+  it "'Sulfuras, Hand of Ragnaros', quality does not change" do
+    items = [Item.new("Sulfuras, Hand of Ragnaros", 10, 50)]
+    expect {GildedRose.new(items).update_quality()}.not_to change {items[0].quality}
+  end
+
 end
