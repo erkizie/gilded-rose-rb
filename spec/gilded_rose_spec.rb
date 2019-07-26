@@ -19,5 +19,10 @@ describe GildedRose do
     items = [Item.new("foo", 0, 10)]
     expect {GildedRose.new(items).update_quality}.to change {items[0].quality}.by(-2)
   end
-  
+
+  it "Quality of an item is never negative" do
+    items = [Item.new("foo", 0, 0)]
+    expect {GildedRose.new(items).update_quality()}.not_to change {items[0].quality}
+  end
+
 end
