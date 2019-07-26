@@ -35,4 +35,9 @@ describe GildedRose do
     expect {GildedRose.new(items).update_quality()}.to change {items[0].quality}.by(2)
   end
 
+  it "The Quality of an item is never more than 50" do
+    items = [Item.new("foo", 0, 50)]
+    expect {GildedRose.new(items).update_quality().not_to change {items[0].quality}}
+  end
+
 end
