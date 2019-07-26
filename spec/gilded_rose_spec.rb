@@ -9,14 +9,19 @@ describe GildedRose do
       expect(items[0].name).to eq 'foo'
     end
 
-    it "decreases the quality value by 1" do
-      items = [Item.new("foo", 5, 10)]
-      expect {GildedRose.new(items).update_quality}.to change {items[0].quality}.by(-1)
+    it "quality of a normal item goes down by 1" do
+      items = [Item.new("normal", 15, 11)]
+      expect {GildedRose.new(items).update_quality()}.to change {items[0].quality}.by(-1)
     end
 
-    it "decreases the quality by 2 after the sell_in has reached 0" do
-      items = [Item.new("foo", 0, 10)]
-      expect {GildedRose.new(items).update_quality}.to change {items[0].quality}.by(-2)
+    it "quality of a normal item goes down by 2 when it is past it's sell by date" do
+      items = [Item.new("normal", 0, 11)]
+      expect {GildedRose.new(items).update_quality()}.to change {items[0].quality}.by(-2)
+    end
+
+    it "quality is zero don't do anything" do
+      items = [Item.new("normal", 5, 0)]
+      expect {GildedRose.new(items).update_quality()}.not_to change {items[0].quality}
     end
 
     it "Quality of an item is never negative" do
